@@ -9,58 +9,43 @@ import {
   Pie,
   Cell,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 function Dashboard() {
   const [page, setPage] = useState("overview");
-
   const [theme, setTheme] = useState("light");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const [profile, setProfile] = useState({
     name: "Abdi Rizack",
     email: "abdi@gmail.com",
   });
 
-  // 👥 USERS (CRUD STATE)
   const [users, setUsers] = useState([
     { id: 1, name: "Abdi Rizack" },
     { id: 2, name: "John Doe" },
     { id: 3, name: "Sarah Ali" },
   ]);
 
-  // ➕ Add user
   const addUser = () => {
     const name = prompt("Enter user name:");
     if (!name) return;
-
-    const newUser = {
-      id: Date.now(),
-      name,
-    };
-
-    setUsers([...users, newUser]);
+    setUsers([...users, { id: Date.now(), name }]);
   };
 
-  // ✏️ Edit user
   const editUser = (id) => {
     const newName = prompt("Enter new name:");
     if (!newName) return;
-
-    setUsers(
-      users.map((u) =>
-        u.id === id ? { ...u, name: newName } : u
-      )
-    );
+    setUsers(users.map((u) => (u.id === id ? { ...u, name: newName } : u)));
   };
 
-  // ❌ Delete user
   const deleteUser = (id) => {
     setUsers(users.filter((u) => u.id !== id));
   };
 
-  const toggleTheme = () => {
+  const toggleTheme = () =>
     setTheme(theme === "light" ? "dark" : "light");
-  };
 
   const logout = () => {
     alert("Logged out successfully");
@@ -84,49 +69,58 @@ function Dashboard() {
 
   return (
     <div
-      className={`flex min-h-screen ${
+      className={`flex flex-col md:flex-row min-h-screen ${
         theme === "dark"
           ? "bg-gray-900 text-white"
           : "bg-gray-100 text-black"
       }`}
     >
 
+      {/* MOBILE TOP BAR */}
+      <div className="md:hidden flex justify-between items-center p-4 bg-gray-900 text-white">
+        <h1 className="font-bold">Dashboard</h1>
+
+        <button onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </button>
+      </div>
+
       {/* SIDEBAR */}
-      <aside className="w-64 bg-gray-900 text-white p-5 hidden md:block">
-        <h1 className="text-2xl font-bold mb-8">Dashboard</h1>
+      <aside
+        className={`bg-gray-900 text-white p-5 space-y-4
+        ${menuOpen ? "block" : "hidden"} md:block md:w-64`}
+      >
+        <h1 className="text-2xl font-bold mb-6 hidden md:block">
+          Dashboard
+        </h1>
 
-        <nav className="space-y-4">
-          <p onClick={() => setPage("overview")} className="cursor-pointer hover:text-blue-400">
-            📊 Overview
+        {["overview", "users", "analytics", "settings"].map((item) => (
+          <p
+            key={item}
+            onClick={() => {
+              setPage(item);
+              setMenuOpen(false);
+            }}
+            className="cursor-pointer hover:text-blue-400 capitalize"
+          >
+            {item}
           </p>
-
-          <p onClick={() => setPage("users")} className="cursor-pointer hover:text-blue-400">
-            👥 Users
-          </p>
-
-          <p onClick={() => setPage("analytics")} className="cursor-pointer hover:text-blue-400">
-            📈 Analytics
-          </p>
-
-          <p onClick={() => setPage("settings")} className="cursor-pointer hover:text-blue-400">
-            ⚙️ Settings
-          </p>
-        </nav>
+        ))}
       </aside>
 
       {/* MAIN */}
       <div className="flex-1 flex flex-col">
 
-        {/* TOP BAR */}
-        <header className="bg-white shadow p-4 flex justify-between items-center">
+        {/* TOP BAR (desktop) */}
+        <header className="hidden md:flex bg-white shadow p-4 justify-between">
           <h2 className="font-semibold capitalize">{page}</h2>
         </header>
 
-        <main className="p-6">
+        <main className="p-4 md:p-6">
 
           {/* OVERVIEW */}
           {page === "overview" && (
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
               <div className="bg-white p-5 rounded-xl shadow">
                 <h3 className="text-gray-500">Users</h3>
@@ -146,16 +140,16 @@ function Dashboard() {
             </div>
           )}
 
-          {/* USERS CRUD */}
+          {/* USERS */}
           {page === "users" && (
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white p-4 md:p-6 rounded-xl shadow">
 
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex flex-col md:flex-row md:justify-between gap-3 mb-4">
                 <h2 className="text-xl font-bold">Users</h2>
 
                 <button
                   onClick={addUser}
-                  className="bg-blue-500 text-white px-3 py-1 rounded"
+                  className="bg-blue-500 text-white px-3 py-2 rounded"
                 >
                   + Add User
                 </button>
@@ -165,7 +159,7 @@ function Dashboard() {
                 {users.map((user) => (
                   <li
                     key={user.id}
-                    className="flex justify-between items-center p-3 bg-gray-100 rounded"
+                    className="flex flex-col md:flex-row md:justify-between gap-2 p-3 bg-gray-100 rounded"
                   >
                     <span>👤 {user.name}</span>
 
@@ -192,36 +186,36 @@ function Dashboard() {
 
           {/* ANALYTICS */}
           {page === "analytics" && (
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white p-4 md:p-6 rounded-xl shadow">
 
               <h2 className="text-lg font-semibold mb-6">Analytics</h2>
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <BarChart width={300} height={250} data={barData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="users" fill="#3b82f6" />
-                </BarChart>
+                <div className="w-full h-64">
+                  <ResponsiveContainer>
+                    <BarChart data={barData}>
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="users" fill="#3b82f6" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
 
-                <PieChart width={300} height={250}>
-                  <Pie
-                    data={pieData}
-                    dataKey="value"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    label
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={index} fill={COLORS[index]} />
-                    ))}
-                  </Pie>
-
-                  <Legend />
-                  <Tooltip />
-                </PieChart>
+                <div className="w-full h-64">
+                  <ResponsiveContainer>
+                    <PieChart>
+                      <Pie data={pieData} dataKey="value" outerRadius={80} label>
+                        {pieData.map((_, i) => (
+                          <Cell key={i} fill={COLORS[i]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
 
               </div>
             </div>
@@ -229,11 +223,10 @@ function Dashboard() {
 
           {/* SETTINGS */}
           {page === "settings" && (
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white p-4 md:p-6 rounded-xl shadow">
 
               <h2 className="text-xl font-bold mb-6">Settings</h2>
 
-              {/* THEME */}
               <button
                 onClick={toggleTheme}
                 className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
@@ -241,7 +234,6 @@ function Dashboard() {
                 Toggle Theme
               </button>
 
-              {/* PROFILE */}
               <div className="space-y-3">
                 <input
                   className="w-full p-2 border rounded"
@@ -260,7 +252,6 @@ function Dashboard() {
                 />
               </div>
 
-              {/* LOGOUT */}
               <button
                 onClick={logout}
                 className="bg-red-500 text-white px-4 py-2 rounded mt-4"

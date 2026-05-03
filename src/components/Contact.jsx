@@ -33,22 +33,28 @@ function Contact() {
     <div className="bg-gray-100 min-h-screen">
 
       {/* HEADER */}
-      <section className="bg-gray-900 text-white py-20 text-center px-6">
-        <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
-        <p className="text-gray-300 max-w-2xl mx-auto">
-          We love hearing from you ❤️. Send us a message and we will respond as soon as possible.
+      <section className="bg-gray-900 text-white py-16 md:py-20 text-center px-4 md:px-6">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          Contact Us
+        </h1>
+
+        <p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
+          We love hearing from you ❤️. Send us a message and we will respond
+          as soon as possible.
         </p>
       </section>
 
       {/* CONTACT SECTION */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 p-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 p-4 md:p-6">
 
         {/* FORM */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-6 rounded-xl shadow space-y-4"
+          className="bg-white p-5 md:p-6 rounded-2xl shadow space-y-4"
         >
-          <h2 className="text-2xl font-bold">Send Message</h2>
+          <h2 className="text-xl md:text-2xl font-bold">
+            Send Message
+          </h2>
 
           <input
             type="text"
@@ -56,7 +62,7 @@ function Contact() {
             placeholder="Your Name"
             value={form.name}
             onChange={handleChange}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border rounded-lg text-sm md:text-base"
           />
 
           <input
@@ -65,7 +71,7 @@ function Contact() {
             placeholder="Your Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full p-3 border rounded"
+            className="w-full p-3 border rounded-lg text-sm md:text-base"
           />
 
           <textarea
@@ -73,64 +79,72 @@ function Contact() {
             placeholder="Your Message"
             value={form.message}
             onChange={handleChange}
-            className="w-full p-3 border rounded h-32"
+            className="w-full p-3 border rounded-lg h-28 md:h-32 text-sm md:text-base"
           ></textarea>
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
+            className="bg-blue-500 text-white px-4 py-3 rounded-lg w-full hover:bg-blue-600 transition"
           >
             Send Message
           </button>
 
           {sent && (
-            <p className="text-green-500 font-semibold text-center">
+            <p className="text-green-500 font-semibold text-center text-sm md:text-base">
               ✅ Message sent successfully!
             </p>
           )}
         </form>
 
         {/* INFO SECTION */}
-        <div className="space-y-6">
+        <div className="space-y-5 md:space-y-6">
 
-          {/* CONTACT CARDS */}
-          <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-bold">📍 Location</h3>
-            <p className="text-gray-600">Garissa, Kenya</p>
+          {/* CARD */}
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <h3 className="font-bold text-lg">📍 Location</h3>
+            <p className="text-gray-600 text-sm md:text-base">
+              Garissa, Kenya
+            </p>
           </div>
 
-          <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-bold">📞 Phone</h3>
-            <p className="text-gray-600">+254 700 000 000</p>
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <h3 className="font-bold text-lg">📞 Phone</h3>
+            <p className="text-gray-600 text-sm md:text-base">
+              +254 700 000 000
+            </p>
           </div>
 
-          <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-bold">📧 Email</h3>
-            <p className="text-gray-600">support@dheltechhub.com</p>
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <h3 className="font-bold text-lg">📧 Email</h3>
+            <p className="text-gray-600 text-sm md:text-base">
+              support@dheltechhub.com
+            </p>
           </div>
 
-          {/* SOCIAL LINKS */}
-          <div className="bg-white p-5 rounded-xl shadow">
-            <h3 className="font-bold mb-2">🌐 Social Media</h3>
+          {/* SOCIAL */}
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <h3 className="font-bold mb-3 text-lg">
+              🌐 Social Media
+            </h3>
 
-            <div className="flex gap-3">
-              <button className="bg-blue-600 text-white px-3 py-1 rounded">
+            <div className="flex flex-wrap gap-3">
+              <button className="bg-blue-600 text-white px-3 py-2 rounded text-sm">
                 Facebook
               </button>
 
-              <button className="bg-pink-500 text-white px-3 py-1 rounded">
+              <button className="bg-pink-500 text-white px-3 py-2 rounded text-sm">
                 Instagram
               </button>
 
-              <button className="bg-green-500 text-white px-3 py-1 rounded">
+              <button className="bg-green-500 text-white px-3 py-2 rounded text-sm">
                 WhatsApp
               </button>
             </div>
           </div>
 
-          {/* MAP PLACEHOLDER */}
-          <div className="bg-gray-300 h-40 rounded-xl flex items-center justify-center">
-            <p className="text-gray-700 font-semibold">
+          {/* MAP */}
+          <div className="bg-gray-300 h-32 md:h-40 rounded-2xl flex items-center justify-center">
+            <p className="text-gray-700 font-semibold text-sm md:text-base">
               📍 Map Location (Coming Soon)
             </p>
           </div>

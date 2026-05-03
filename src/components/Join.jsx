@@ -11,7 +11,7 @@ function Join() {
       image: abdiImg,
     },
     {
-      name: "Sara Ali",
+      name: "Dheqa Ali",
       role: "Tech Lead",
       image: saraImg,
     },
@@ -45,53 +45,66 @@ function Join() {
     <div className="bg-gray-50 min-h-screen text-gray-800">
 
       {/* HERO */}
-      <section className="bg-gradient-to-r from-black to-gray-800 text-white py-28 text-center px-6">
-        <h1 className="text-5xl font-bold">We Build The Future</h1>
-        <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
-          DhelTechHub is a modern tech platform focused on learning, innovation,
-          and real-world digital solutions.
+      <section className="bg-gradient-to-r from-black to-gray-800 text-white py-20 md:py-28 text-center px-4 md:px-6">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+          We Build The Future
+        </h1>
+
+        <p className="mt-4 text-gray-300 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
+          DhelTechHub is a modern tech platform focused on learning,
+          innovation, and real-world digital solutions.
         </p>
       </section>
 
       {/* STORY SECTION */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">
+      <section className="py-12 md:py-16 px-4 md:px-6 max-w-6xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
           Our Story & Vision
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {storyCards.map((item, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition"
+              className="bg-white p-5 md:p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300"
             >
-              <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-              <p className="text-gray-600">{item.text}</p>
+              <h3 className="text-lg md:text-xl font-semibold mb-3">
+                {item.title}
+              </h3>
+
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                {item.text}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
       {/* TEAM */}
-      <section className="py-16 px-6 bg-white">
-        <h2 className="text-3xl font-bold text-center mb-10">
+      <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
           Leadership Team
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="text-center bg-gray-50 p-6 rounded-xl shadow hover:shadow-lg transition"
+              className="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition duration-300"
             >
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-black"
+                className="w-24 h-24 md:w-28 md:h-28 rounded-full mx-auto mb-4 object-cover border-4 border-black"
               />
 
-              <h3 className="font-bold text-lg">{member.name}</h3>
-              <p className="text-gray-500">{member.role}</p>
+              <h3 className="font-bold text-lg md:text-xl">
+                {member.name}
+              </h3>
+
+              <p className="text-gray-500 text-sm md:text-base">
+                {member.role}
+              </p>
             </div>
           ))}
         </div>
